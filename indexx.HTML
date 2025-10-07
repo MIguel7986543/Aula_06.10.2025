@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Idade</title>
+</head>
+<body>
+    
+    <h2>Exercicio 1: Calcular idade</h2>
+ 
+    <label for="nascimento">Data de nascimento</label>
+    <input type="date" id="nascimento">
+    <button onclick="calcularIdade()">Calcular</button>
+ 
+    <p id="idadeResultado"></p>
+ 
+    <script>
+        function calcularIdade(){
+            const nascimentoStr = document.getElementById("nascimento").value;
+            if (!nascimentoStr) {
+                document.getElementById("idadeResultado").textContent = "Selecione uma data";
+                return;
+            }
+ 
+            const nascimento = new Date(nascimentoStr);
+            const hoje = new Date();
+            let idade = hoje.getFullYear() - nascimento.getFullYear();
+ 
+            const aniversarioEsteAno = new Date(hoje.getFullYear(), nascimento.getMonth(), nascimento.getDate());
+            if (hoje<aniversarioEsteAno){
+                idade--;
+            }
+ 
+            document.getElementById("idadeResultado").textContent = `Idade ${idade} anos`;
+ 
+        }
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, 
+    initial-scale=1.0" />
+    <title>Manipulação de datas</title>
+
+    <style>
+      body {
+        font-family: arial;
+        padding: 20px;
+      }
+      label,
+      input,
+      button {
+        display: block;
+        margin: 10px;
+      }
+    </style>
+  </head>
+  <body>
+    <h2>Formulário com Campo de Data</h2>
+    <form id="dateForm">
+      <label for="birthdate">Data de nascimento</label>
+      <input type="date" name="birthdate" id="birthdate" />
+      <button type="submit">enviar</button>
+    </form>
+
+    <div id="result"></div>
+
+    <script>
+      const form = document.getElementById("dateForm");
+      const result = document.getElementById("result");
+
+      form.addEventListener("submit", function (e) {
+        e.preventDefault();
+        const dateInput = document.getElementById("birthdate")
+        .value;
+        if (!dateInput) {
+          result.textContent = "Por favor, bota logo a data.";
+          return;
+        }
+
+        const date = new Date(dateInput);
+        date.setDate(date.getDate() + 1);
+        const options = { year: "numeric", month: "long", day:
+         "numeric" };
+        const data = date.toLocaleDateString("pt-BR", options);
+
+        result.innerHTML = `
+          <p>Data selecionada: <strong>${data}</strong></p>
+          <p>Dia da semana: <strong>${date.toLocaleDateString
+            ("pt-BR", {weekday: "long",})}</strong></p>
+          
+
+
+        `;
+      });
+    </script>
+  
+
+
+    <h2>Exercicio 1: Calcular idade</h2>
+ 
+    <label for="nascimento">Data de nascimento</label>
+    <input type="date" id="nascimento">
+    <button onclick="calcularIdade()">Calcular</button>
+ 
+    <p id="idadeResultado"></p>
+ 
+    <script>
+        function calcularIdade(){
+            const nascimentoStr = document.getElementById("nascimento").value;
+            if (!nascimentoStr) {
+                document.getElementById("idadeResultado").textContent = "Selecione uma data";
+                return;
+            }
+ 
+            const nascimento = new Date(nascimentoStr);
+            const hoje = new Date();
+            let idade = hoje.getFullYear() - nascimento.getFullYear();
+ 
+            const aniversarioEsteAno = new Date(hoje.getFullYear(), nascimento.getMonth(), nascimento.getDate());
+            if (hoje<aniversarioEsteAno){
+                idade--;
+            }
+ 
+            document.getElementById("idadeResultado").textContent = `Idade $ {idade} anos`;
+ 
+        }
+   
+
+
+
+    </script>
+  </body>
+</html>
